@@ -16,8 +16,25 @@ parts:
   exporter:
     plugin: python
     source: .
+    stage-packages:
+      - dpkg
 
 apps:
   inventory-exporter:
     command: bin/exporter
     daemon: simple
+    plugs:
+      - network
+      - network-bind
+      - apt-dpkg-db
+
+plugs:
+  apt-dpkg-db:
+    interface: system-files
+    read:
+      - /var/lib/snapd/hostfs/var/lib/dpkg
+      - /var/lib/snapd/hostfs/var/cache/apt
+
+layout:
+  /usr/bin/dpkg:
+    bind-file: $SNAP/usr/bin/dpkg

@@ -3,7 +3,7 @@ import sys,os
 
 setup(
     name = 'inventory-exporter',
-    version = '0.1.0',
+    version = '1.0.0',
     description = 'Inventory exporter simple webserver',
     license='GPL v3',
     author = 'Diko Parvanov',
@@ -17,7 +17,7 @@ setup(
             },
     classifiers = ['Operating System :: OS Independent',
             'Programming Language :: Python :: 2.7',
-            'Programming Language :: Python :: 3.6',
+            'Programming Language :: Python :: 3.8',
             'Operating System :: MacOS :: MacOS X',
             'Operating System :: Microsoft :: Windows',
             'Operating System :: POSIX',

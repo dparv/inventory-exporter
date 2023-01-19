@@ -11,7 +11,7 @@ class Exporter(BaseHTTPRequestHandler):
 
     def _set_response(self):
         self.send_response(200)
-        if self.path in ['/apt', '/snap', '/kernel']:
+        if self.path in ['/dpkg', '/snap', '/kernel']:
             self.send_header('Content-type', 'application/json')
         else:
             self.send_header('Content-type', 'text/html')
@@ -21,8 +21,8 @@ class Exporter(BaseHTTPRequestHandler):
         self._set_response()
         if self.path == '/hostname':
             self.wfile.write(socket.gethostname().encode("utf-8"))
-        elif self.path == '/apt':
-            self.wfile.write(self.generate_apt_output().encode("utf-8"))
+        elif self.path == '/dpkg':
+            self.wfile.write(self.generate_dpkg_output().encode("utf-8"))
         elif self.path ==  '/snap':
             self.wfile.write(self.generate_snap_output().encode("utf-8"))
         elif self.path ==  '/kernel':
@@ -31,7 +31,7 @@ class Exporter(BaseHTTPRequestHandler):
             helper= """
             <a href='/hostname'>/hostname</a>
             <br />
-            <a href='/apt'>/apt</a>
+            <a href='/dpkg'>/dpkg</a>
             <br />
             <a href='/snap'>/snap</a>
             <br />
@@ -39,11 +39,11 @@ class Exporter(BaseHTTPRequestHandler):
             """
             self.wfile.write(helper.encode("utf-8"))
 
-    def generate_apt_output(self):
+    def generate_dpkg_output(self):
         cmd = 'dpkg -l --admindir=/var/lib/snapd/hostfs/var/lib/dpkg'
-        apts = subprocess.check_output(cmd.split())
-        apts = str(apts)
-        lines = apts.split('\\n')
+        dpkg = subprocess.check_output(cmd.split())
+        dpkg = str(dpkg)
+        lines = dpkg.split('\\n')
         lines = lines[5:-1]
         output = []
         for line in lines:

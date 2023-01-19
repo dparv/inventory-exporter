@@ -16,6 +16,8 @@ parts:
   exporter:
     plugin: dump
     source: .
+    stage-packages:
+      - dpkg
 
 apps:
   inventory-exporter:

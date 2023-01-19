@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-from http.server import BaseHTTPRequestHandler, HTTPServer
+import sys
 import json
+import yaml
 import socket
 import subprocess
+from http.server import BaseHTTPRequestHandler, HTTPServer
 
-hostname = '0.0.0.0'
-port = 8675
 
 class Exporter(BaseHTTPRequestHandler):
 
@@ -85,7 +85,14 @@ class Exporter(BaseHTTPRequestHandler):
         return json.dumps(output)
 
 def main():
-    webServer = HTTPServer((hostname, port), Exporter)
+    args = sys.argv
+    if args[1] == "-c":
+        config_file_path = args[2]
+    else:
+        sys.exit(1)
+    config_file = open(config_file_path, 'r').read()
+    config = yaml.safe_load(config_file)['settings']
+    webServer = HTTPServer((config['hostname'], config['port']), Exporter)
     webServer.serve_forever()
 
 

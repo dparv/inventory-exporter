@@ -14,14 +14,12 @@ architectures:
 
 parts:
   exporter:
-    plugin: python
+    plugin: dump
     source: .
-    stage-packages:
-      - dpkg
 
 apps:
   inventory-exporter:
-    command: bin/exporter
+    command: exporter.py -c $SNAP_COMMON/config.yaml
     daemon: simple
     plugs:
       - network

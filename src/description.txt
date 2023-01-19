@@ -1,2 +1,0 @@
-This snap runs a simple python http server that serves apt packages and snaps                                         
-in json format.                                                                                                       

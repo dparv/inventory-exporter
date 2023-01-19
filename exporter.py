@@ -92,7 +92,7 @@ def main():
         sys.exit(1)
     config_file = open(config_file_path, 'r').read()
     config = yaml.safe_load(config_file)['settings']
-    webServer = HTTPServer((config['hostname'], config['port']), Exporter)
+    webServer = HTTPServer((config['bind_address'], config['port']), Exporter)
     webServer.serve_forever()
 
 

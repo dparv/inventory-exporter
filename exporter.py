@@ -40,7 +40,7 @@ class Exporter(BaseHTTPRequestHandler):
             self.wfile.write(helper.encode("utf-8"))
 
     def generate_dpkg_output(self):
-        cmd = 'dpkg -l --admindir=/var/lib/snapd/hostfs/var/lib/dpkg'
+        cmd = 'dpkg -l'
         dpkg = subprocess.check_output(cmd.split())
         dpkg = str(dpkg)
         lines = dpkg.split('\\n')
